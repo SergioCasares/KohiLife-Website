@@ -1,174 +1,235 @@
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>KohiLife</title>
-  <!-- Main Bootstrap Theme -->
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" >
-  <!-- Custom Theme -->
-  <link rel="stylesheet" href="css/custom.css" >
-  <!-- Custom Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Saira" rel="stylesheet">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <!-- Favicon -->
-  <link rel="apple-touch-icon" sizes="57x57" href="img/favicon/apple-icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="img/favicon/apple-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="img/favicon/apple-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="img/favicon/apple-icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="img/favicon/apple-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="img/favicon/apple-icon-144x144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="img/favicon/apple-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-icon-180x180.png">
-  <link rel="icon" type="image/png" sizes="192x192"  href="img/favicon/android-icon-192x192.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="img/favicon/favicon-96x96.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
-  <link rel="manifest" href="img/favicon/manifest.json">
-  <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="msapplication-TileImage" content="img/favicon/ms-icon-144x144.png">
-  <meta name="theme-color" content="#ffffff">
+<meta charset="utf-8">
+<meta canonical="http://dev.kohi.life/">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="img/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home | Kohi Life</title>
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" >
+<link rel="stylesheet" href="css/custom.css" >
+<link href="https://fonts.googleapis.com/css?family=Saira" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="apple-touch-icon" sizes="57x57" href="img/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="img/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="img/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="img/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="img/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="img/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="img/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="img/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="img/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+<link rel="manifest" href="img/favicon/manifest.json">
+<script src="https://cdn.jsdelivr.net/gh/leonardosnt/mc-player-counter@1.1.1/dist/mc-player-counter.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script>
+
+  var rq = '//api.syfaro.net/server/status';
+  var error = 'unknown';
+  var classes = {
+    error: "fa-question",
+    false: "fa-times",
+    true: "fa-check",
+  };
+  var allclasses = "";
+
+  for(i in classes) {
+    allclasses += ' ' + classes[i];
+  };
+
+  function q(addr, cb) {
+
+    $.ajax({
+      url: rq,
+      type: 'GET',
+      dataType: 'json',
+      data: { ip: addr, players: true },
+    })
+
+    .done(function(data) {
+      console.log("success");
+      console.log(data);
+      cb(data);
+    })
+
+    .fail(function(data) {
+      console.log("error");
+    })
+
+    .always(function() {});
+
+  }
+
+  function setclass(o, c) {
+    o.removeClass(allclasses);
+    o.addClass(classes[c]);
+    o.html('');
+  }
+
+  function settext(o, t) {
+    o.removeClass(allclasses);
+    o.html(t);
+  }
+
+  function display(data) {
+    var np = $('#numplayers'),
+    players = $('#players');
+    if (data.online) {
+      settext(np, data.players.now);
+      if (data.players.sample) {
+        settext(players, data.players.sample.map(function(v){
+          return v.name;
+        }).join(', '));
+      } else {
+        settext(players, '');
+      }
+    } else {
+      setclass(np, error);
+      setclass(players, error);
+    }
+  }
+
+  $(document).ready(function() {
+    q('kohi.life', display);
+  });
+
+</script>
 </head>
 <body>
-  <!-- Navbar Start -->
-  <div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
-    <div class="container">
-      <div class="container-fluid">
-          <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar">
-              </span><span class="icon-bar"></span>
-              </button>
-              <a  class="navbar-brand" rel="home" href="index.html">Kohi Life
-                <img style="max-width:100px; margin-top: -7px;" src="img/nexuslogo.png">
-              </a>
-          </div>
-          <div class="collapse navbar-collapse navbar-menubuilder">
-              <ul class="nav navbar-nav navbar-left">
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                      <i class="fa fa-users"></i> Community
-                      <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="#"><i class="fa fa-reddit"></i> Reddit</a></li>
-                      <li><a href="#"><i class="fa fa-star"></i> Famous</a></li>
-                      <li><a href="#"><i class="fa fa-user-plus"></i> Staff</a></li>
-                    </ul>
-                  </li>
-                    <li><a href="/products"><i class="fa fa-ticket"></i> Support</li></a>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                          <i class="fa fa-bar-chart"></i>
-                          Stats
-                          <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li class="dropdown-header">Practice Classic</li>
-                          <li class="dropdown"><a href="#">LeaderBoard</a></li>
-                          <li class="divider"></li>
-                          <li class="dropdown-header">Factions</li>
-                          <li><a href="#">LeaderBoard</a></li>
-                          <li><a href="countdown.html">Countdown</a></li>
-                          <li class="divider"></li>
-                          <li class="dropdown-header">Vaul Games</li>
-                          <li><a href="#">LeaderBoard</a></li>
-                          <li class="divider"></li>
-                          <li class="dropdown-header">Survival Games</li>
-                          <li><a href="#">LeaderBoard</a></li>
-                        </ul>
-                    <li><a href="https://store.kohi.life/"><i class="fa fa-shopping-cart"></i> Shop</li></a>
-                  </li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                  <li><input type="text" class="form-control navbar-input" placeholder="Search"></li>
-                  <li><a href="/">Login</a></li>
-              </ul>
-          </div>
-      </div>
-    </div>
-  </div>
-  <!-- navbar end -->
-<div class="container-fluid" style="padding:0px;">
-        <div class="jumbotron banner-text">
-            <div class="container">
-                <h1>Kohi Life</h1>
-                <p>TS: ts.kohi.life | IP: kohi.life | STORE: store.kohi.life</p>
-            </div>
-        </div>
-        <div class="carousel slide" data-ride="carousel" data-interval="2000">
-            <div class="carousel-inner home-banner" role="listbox">
-                <div class="item banner-img center-block active">
-                    <img src="img/slider/img01.png" width="100%">
-                </div>
-                <div class="item banner-img center-block">
-                    <img src="img/slider/img02.png" width="100%">
-                </div>
-                <div class="item banner-img center-block">
-                    <img src="img/slider/img03.png" width="100%">
-                </div>
-            </div>
-        </div>
+<div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
 <div class="container">
-  <div class="col-lg-12">
-    <div class="row">
-      <div class="col-lg-4 players">
-          <div style="text-align:center;padding:5px;">
-              <i class="fa fa-comments fa-icon-home" style="display: block;margin-bottom: 10px;font-size: 8em;"></i>
-              <p>The forums is a place for the community to interact and talk to each other. Get to know the people you play with and hear important announcements.</p>
-              <a href="#" class="btn btn-default">Join the Forums</a>
-            </div>
-          </div>
-          <div class="col-lg-4 players">
-            <div style="text-align:center;padding:5px;">
-              <i class="fa fa-comments fa-icon-home" style="display: block;margin-bottom: 10px;font-size: 8em;"></i>
-              <p>The forums is a place for the community to interact and talk to each other. Get to know the people you play with and hear important announcements.</p>
-              <a href="#" class="btn btn-default">Join the Forums</a>
-            </div>
-          </div>
-          <div class="col-lg-4 players">
-            <h3>Total Players on Network: NULL</h3>
-            <ul class="list-group">
-              <div class="">
-                <li class="list-group-item">
-                  <span class="badge">NULL</span>
-                  Practice
-                </li>
-                <li class="list-group-item">
-                  <span class="badge">NULL</span>
-                  HCFactions
-                </li>
-                <li class="list-group-item">
-                  <span class="badge">NULL</span>
-                  Vault Games
-                </li>
-                <li class="list-group-item">
-                  <span class="badge">NULL</span>
-                  Survival Games
-                </li>
-              </div>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- footer -->
-    <div class="footer navbar-default navbar-fixed-bottom">
-        <div class="container">
-            <p class="navbar-text pull-left">© 2017 Kohi Life Network</p>
-            <p class="navbar-text pull-right">
-                <a href="staff"><i class="fa fa-user-plus"></i>Staff</a>
-                &nbsp;
-                <a href="rules.html"><i class="fa fa-book"></i>Rules</a>
-            </p>
-        </div>
-    </div>
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar">
+</span>
+<span class="icon-bar">
+</span>
+</button>
+<div class="navbar-brand" rel="home">
+<img style="max-width:100px; margin-top: -7px;" src="img/nexuslogo.png">
+<a href="/" style="color: gray; padding-right: 10px;"><b>KohiLife</b></a>
+</div>
+</div>
+<div class="collapse navbar-collapse navbar-menubuilder">
+<ul class="nav navbar-nav navbar-left">
+<li class="dropdown">
+<a href="javaScript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+<i class="fa fa-users"></i> Community
+<span class="caret"></span>
+</a>
+<ul class="dropdown-menu" role="menu">
+<li><a href="staff.html"><i class="fa fa-user-plus"></i> Staff</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="javaScript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+<i class="fa fa-bar-chart"></i> Stats
+<span class="caret"></span>
+</a>
+<ul class="dropdown-menu" role="menu">
+<li class="dropdown-header">Factions</li>
+<li><a href="countdown.html"> Countdown</a></li>
+<li class="divider"></li>
+</ul>
+<li>
+<a href="http://store.kohi.life/">
+<i class="fa fa-shopping-cart"></i> Shop
+</a>
+</li>
+<li>
+<a href="soporte.html">
+<i class="fa fa-question-circle"></i> Support
+</a>
+</li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+<li style="padding-left: 15px;">
+<input type="text" class="form-control navbar-input" placeholder="Search players...">
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- navbar end -->
+<div class="container-fluid" style="padding:0px;">
+<div class="jumbotron banner-text">
+<div class="container">
+<span>
+<a href="/">
+<img style="max-width:100px; margin-top: -7px;" src="img/nexuslogo.png">
+</a>
+<br />
+<br />
+</span>
+<h1>KohiLife</h1>
+<p>TeamSpeak 3: ts.kohi.life | Minecraft IP: kohi.life | Store: store.kohi.life</p>
+</div>
+</div>
+<div class="carousel slide" data-ride="carousel" data-interval="2000">
+<div class="carousel-inner home-banner" role="listbox">
+<div class="item banner-img center-block active">
+<img src="img/slider/img01.png" width="100%">
+</div>
+<div class="item banner-img center-block">
+<img src="img/slider/img02.png" width="100%">
+</div>
+<div class="item banner-img center-block">
+<img src="img/slider/img03.png" width="100%">
+</div>
+</div>
+</div>
+<div class="container">
+<div class="col-lg-12">
+<div class="row">
+<div class="col-lg-4 players">
+<div style="text-align:center;padding:5px;">
+<i class="fa fa-comments fa-icon-home" style="display: block;margin-bottom: 10px;font-size: 8em;"></i>
+<p>The forum was created to make a report and keep clean the community!</p>
+<a href="javaScript:void(0);" class="btn btn-default">Coming soon!</a>
+</div>
+</div>
+<div class="col-lg-4 players">
+<div style="text-align: center; padding: 5px;"></div>
+</div>
+<div class="col-lg-4 players">
+<h3>Total players on the network:</h3>
+<ul class="list-group">
+<div class="">
+<li class="list-group-item">
+<span class="badge">
+<u><span id="numplayers">java.lang.connectException();</span>/2500</u>
+</span>
+<strong>Network</strong>
+</li>
+</div>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<br />
+<br />
+<div class="footer navbar-default navbar-fixed-bottom">
+<div class="container">
+<p class="navbar-text pull-left">© 2018 KohiLife Network</p>
+<p class="navbar-text pull-right">
+<a href="staff.html"><i class="fa fa-user-plus"></i>Staff</a>
+<a href="rules.html"><i class="fa fa-book"></i>Rules</a>
+</p>
+</div>
+</div>
+<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 </body>
-<!-- Jquery JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
 </html>
