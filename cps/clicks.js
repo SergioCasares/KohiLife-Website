@@ -5,61 +5,44 @@ $(document).ready(function() {
 	var clicks = 0;
 	var active = false;
 
-	$( "#clicker" ).click(function() {
-
+	$("#clicker").click(function() {
 		if(!active){
-
 			start = $.now();
 			active = true;
 			countdown = setInterval(function(){
 				timer()
 			}, 50);
 			clicks = 0;
-
 		}
-
 		clicks++;
-		$('#clicks').html('Calculando ' + clicks + ' clicks...');
-
+		$('#clicks').html(clicks);
 	});
 
-	$( "#reset" ).click(function() {
-
+	$("#reset").click(function() {
 		if(!active){
-
 			$('#reset').hide();
 			$('#clicker').show();
 			$('.progress').show();
-			$('#clicks').html('Esperando clicks...');
-
+			$('#clicks').html('0');
 			clearInterval(countdown);
-			cuenta = 0;
-			$('#countdown').html(cuenta + '.000');
-
+			$('#countdown').html('Time: 0');
 		}
-
 	});
 
 	function timer() {
-
 		if(($.now() - start) > 10000){
-
 			$('#clicker').hide();
 			$('.countdown').hide();
-			$('#countdown').html('10.000');
+			$('#countdown').html('Time: 10');
 			$('#reset').show();
-
-			$('#clicks').html('Has logrado hacer ' + (clicks / 10) + ' clicks por segundo!');
-
+			$('#clicks').html((clicks / 10) + ' clicks per second.');
 			active = false;
-			document.getElementById("clicker").innerHTML = 'Click aquí';
+			document.getElementById("clicker").innerHTML = 'Click here';
 			return;
-
 		}
-
 		var t = (start - $.now()) / 1000
-		$('#countdown').html(Math.abs(t));
-
+		var ronda = Math.abs(t);
+		$('#countdown').html('Time: '+Math.round(ronda));
 	}
 
 });

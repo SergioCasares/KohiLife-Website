@@ -4,35 +4,32 @@
     <meta canonical="http://dev.kohi.life/">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="img/favicon/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="assets/img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home | Kohi Life</title>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="css/custom.css" >
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="assets/css/custom.css" >
     <link href="https://fonts.googleapis.com/css?family=Saira" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="57x57" href="img/favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="img/favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="img/favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="img/favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="img/favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="img/favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="img/favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="img/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="img/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="img/favicon/manifest.json">
+    <link rel="apple-touch-icon" sizes="57x57" href="assets/assets/img/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="assets/img/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/img/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/img/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="assets/img/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/img/favicon/manifest.json">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/sv-ping-manager.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/sv-ping-manager.js"></script>
     <style>
-      @media() {
-        
-      }
       a:-webkit-any-link {
         cursor: pointer;
         text-decoration: none;
@@ -45,7 +42,7 @@
       }
       .footer{
         width: 100%;
-        height: 16%;
+        height: 80px;
         bottom: 0px;
         position: absolute;
       }
@@ -60,7 +57,7 @@
               <span class="sr-only">Toggle navigation</span>
             </button>
             <div class="navbar-brand" rel="home">
-              <img class="kohiimagenav" src="img/nexuslogo.png">
+              <img class="kohiimagenav" src="assets/img/nexuslogo.png">
               <a href="/" style="color: gray; padding-right: 10px;"><b>KohiLife</b></a>
             </div>
           </div>
@@ -72,7 +69,7 @@
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="staff.html"><i class="fa fa-user-plus"></i> Staff</a></li>
+                  <li><a href="/staff/"><i class="fa fa-user-plus"></i> Staff</a></li>
                 </ul>
               </li>
               <li class="dropdown">
@@ -83,7 +80,7 @@
                 <ul class="dropdown-menu" role="menu">
                   <li class="dropdown-header">Factions</li>
                   <li>
-                    <a href="countdown.html"> Countdown</a>
+                    <a href="/factions/countdown/"> Countdown</a>
                   </li>
                 </ul>
                 <li>
@@ -92,14 +89,26 @@
                   </a>
                 </li>
                 <li>
-                  <a href="soporte.html">
+                  <a href="/support/">
                     <i class="fa fa-question-circle"></i> Support
                   </a>
                 </li>
-                <li>
-                  <a href="/cps/index.html">
-                    <i class="fa fa-mouse-pointer"></i> CPS
+                <li class="dropdown">
+                  <a href="javaScript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <i class="fa fa-wrench"></i> Tools
+                    <span class="caret"></span>
                   </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                      <a href="/cps/"><i class="fa fa-mouse-pointer"></i> CPS</a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-wrench"></i> Coming soon!</a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-wrench"></i> Coming soon!</a>
+                    </li>
+                  </ul>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -117,7 +126,7 @@
         <div class="container">
           <span>
             <a href="/">
-              <img style="max-width:100px; margin-top: -7px;" src="img/nexuslogo.png">
+              <img style="max-width:100px; margin-top: -7px;" src="assets/img/nexuslogo.png">
             </a>
             <br />
             <br />
@@ -129,13 +138,13 @@
       <div class="carousel slide" data-ride="carousel" data-interval="2000">
         <div class="carousel-inner home-banner" role="listbox">
           <div class="item banner-img center-block active">
-            <img src="img/slider/img01.png" width="100%">
+            <img src="assets/img/slider/img01.png" width="100%">
           </div>
           <div class="item banner-img center-block">
-            <img src="img/slider/img02.png" width="100%">
+            <img src="assets/img/slider/img02.png" width="100%">
           </div>
           <div class="item banner-img center-block">
-            <img src="img/slider/img03.png" width="100%">
+            <img src="assets/img/slider/img03.png" width="100%">
           </div>
         </div>
       </div>
@@ -171,18 +180,10 @@
     </div>
     <br />
     <br />
-		<div class="footer">
+    <div class="footer">
   		<div class="container">
-        <p class="navbar-text pull-left">Copyright © 2018 Kohi Life Network <br /> Author: <a href="https://twitter.com/@DJBiokinetix" target="_blank">@DJBiokinetix</a> <br /> Contribuitors: <a href="https://twitter.com/@NotZepeda" target="_blank">@NotZepeda</a></p>
-  		  <p class="navbar-text pull-right">
-  		    <a href="staff.html">
-						<i class="fa fa-user-plus"></i>Staff
-					</a>
-					|
-  		    <a href="rules.html">
-						<i class="fa fa-book"></i>Rules
-					</a>
-  		  </p>
+        <p class="navbar-text pull-left">Copyright © 2018 Kohi Life Network</p>
+  		  <p class="navbar-text pull-right"><a href="/staff/"><i class="fa fa-user-plus"></i>Staff</a> | <a href="/rules/"><i class="fa fa-book"></i>Rules</a></p>
   		</div>
 		</div>
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
